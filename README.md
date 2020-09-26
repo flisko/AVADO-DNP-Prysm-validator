@@ -52,7 +52,7 @@ You can distribute the IPFS hash of your package to other AVADO users without re
 - upon installing - the AVADO will create a DNS entry called `my.<packagename>` that resolvves to the docker container's IP address. This is convenient if you want to open a web UI from the package. If you install this package - the hostname `my.avado-dnp-template.public.dappnode.eth` will resolve to its IP address.
 - in the AVADO repo - there are several packages published that you can take a look at to get inspired on how to fiddle with parameters.
 - The installer currently requires that there is only one docker image per package. So you need to put all your stuff in one container.
-- If you change the avatar.png image (needs to be 300x300 pixels) - you need to first upload it to IPFS using the command `ipfs add avatar.png --api /ip4/23.254.227.151/tcp/5001`
+- If you change the avatar.png image (needs to be 300x300 pixels) - you need to first upload it to IPFS using the command `ipfs add avatar.png --api /ip4/23.254.227.151/tcp/5001` and put the resulting IPFS hash in the field `avatar` in `dappnode_package.json`.
 - If you want to publish for others to use - feel free to use our IPFS node to upload your package to: `dappnodesdk build --provider http://23.254.227.151:5001`
 
 
