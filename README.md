@@ -5,7 +5,7 @@ This is a template for creating AVADO packages yourself.
 ## Prerequisites
  
  - A WiFi or VPN connection to your AVADO box 
- - IPFS client installed
+ - IPFS client installed (optional)
 
 ## Installation
 
@@ -43,14 +43,31 @@ You want to change the package name you need to change the package name in the f
 
 ## Publishing
 
-You can distribute the IPFS hash of your package to other AVADO users - or if you want to have your package added to the DappStore - contact the AVADO team in the Telegram chat.
+You can distribute the IPFS hash of your package to other AVADO users without requiring anyone's permission - or if you want to have your package added to the DappStore - contact the AVADO team in the Telegram chat.
 
 ## Some random tips
 
 - the docker-compose file creates a mount point `/data` where you can store data that has to be saved on a seperate volume to be retained after a package restart.
 - you can bump the package version number using `dappnodesdk patch`
 - upon installing - the AVADO will create a DNS entry called `my.<packagename>` that resolvves to the docker container's IP address. This is convenient if you want to open a web UI from the package. If you install this package - the hostname `my.avado-dnp-template.public.dappnode.eth` will resolve to its IP address.
-- in the AVADO repo - there are several packages published that you can take a look at to get inspired on how to fiddle with parameters
+- in the AVADO repo - there are several packages published that you can take a look at to get inspired on how to fiddle with parameters.
+- The installer currently requires that there is only one docker image per package. So you need to put all your stuff in one container.
+- If you change the avatar.png image (needs to be 300x300 pixels) - you need to first upload it to IPFS using the command `ipfs add avatar.png --api /ip4/23.254.227.151/tcp/5001`
+- If you want to publish for others to use - feel free to use our IPFS node to upload your package to: `dappnodesdk build --provider http://23.254.227.151:5001`
+
+
+## update flow & tagging your repo
+
+This is a suggested flow to upgrade your package when you want to release a new version:
+
+```
+dappnodesdk increase patch
+dappnodesdk build --provider http://23.254.227.151:5001
+git add dappnode_package.json docker-compose.yml releases.json
+git commit -m"new release"
+git push
+npx release-it
+```
 
 
 
