@@ -1,28 +1,30 @@
+FROM node as builder
 
-FROM node:10.15.3 as build-deps-wizard
+WORKDIR /app/validator 
+ENV DOWNLOAD_URL https://github.com/prysmaticlabs/prysm/releases/download
+ENV BINARY_URL $DOWNLOAD_URL/v1.0.5/validator-v1.0.5-linux-amd64
 
-# # build wizard
-# WORKDIR /usr/src/app/wizard
-# COPY wizard .
-# RUN yarn
-# RUN rm -Rf build && yarn run build
+RUN wget $BINARY_URL -O validator && \
+    chmod +x  validator
+RUN ls -l
 
-# # build monitor
-# WORKDIR /usr/src/app/monitor
-# COPY monitor .
-# RUN npm i --production
 
-# build final image
-FROM node:current-alpine3.12
+FROM debian:buster-slim
 
-WORKDIR /usr/src/app
-USER root
 
-RUN apk add -U --no-cache supervisor
+RUN apt update && \
+    apt install -y ca-certificates nginx && \
+    rm -rf /var/lib/apt/lists/*
 
-# COPY --from=build-deps-wizard /usr/src/app/monitor /usr/src/monitor
-# COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/src/monitor/wizard
+WORKDIR  /usr/share/nginx
+COPY wizard ./wizard
+COPY files/nginx.conf /etc/nginx
 
-COPY files/supervisord.conf /etc/supervisord/
+COPY --from=builder /app/validator/validator /bin/validator
 
-ENTRYPOINT supervisord -n -c /etc/supervisord/supervisord.conf
+COPY files/start.sh /scripts/start.sh
+RUN chmod +x /scripts/start.sh
+
+
+ENTRYPOINT [ "/scripts/start.sh" ]
+

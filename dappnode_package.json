@@ -1,16 +1,30 @@
 {
-  "name": "avado-dnp-template.public.dappnode.eth",
-  "version": "0.0.1",
-  "description": "AVADO-DNP-template description",
-  "avatar": "/ipfs/QmYRmFCtdXvqq3drc6kBXxeWiiMatTfKVpVrmLX883cQbR",
+  "name": "eth2validator.avado.dnp.dappnode.eth",
+  "version": "0.0.12",
+  "upstream": "v1.0.5",
+  "title": "Prysm ETH2.0 validator",
+  "description": "the ETH2.0 validator for AVADO",
+  "avatar": "/ipfs/Qmf7yFka8z2QLRrDyT1ESNRwP9a1tdufEEtBghXHFUEQEP",
   "type": "service",
+  "autoupdate": true,
   "image": {
-    "path": "avado-dnp-template.public.dappnode.eth_0.0.1.tar.xz",
-    "hash": "/ipfs/QmRbo3gV82RXznSzXKJxCdERJzCPo6oZy5njqfa6wWhXn7",
-    "size": 35347220,
+    "volumes": [
+      "data:/root"
+    ],
+    "environment": [
+      "EXTRA_OPTS=--graffiti=AVADO --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000 --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500"
+    ],
+    "path": "eth2validator.avado.dnp.dappnode.eth_0.0.12.tar.xz",
+    "hash": "/ipfs/QmUQ5R36PXz7srnL6FmJwomuSxJErDbBeWKvnzfDkBUWYq",
+    "size": 46606184,
     "restart": "always"
   },
   "author": "AVADO",
   "license": "(c)",
-  "dependencies": {}
+  "dependencies": {
+    "prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth": "QmTUaSPTdDm9wzRnZpetV1qaSL8W196wDsSCkme2hwUMMp"
+  },
+  "links": {
+    "OnboardingWizard": "http://eth2validator.avadopackage.com:81"
+  }
 }
