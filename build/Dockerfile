@@ -1,8 +1,9 @@
 FROM node as builder
+ARG VERSION
 
 WORKDIR /app/validator 
 ENV DOWNLOAD_URL https://github.com/prysmaticlabs/prysm/releases/download
-ENV BINARY_URL $DOWNLOAD_URL/v1.1.0/validator-v1.1.0-linux-amd64
+ENV BINARY_URL ${DOWNLOAD_URL}/${VERSION}/validator-${VERSION}-linux-amd64
 
 RUN wget $BINARY_URL -O validator && \
     chmod +x  validator
