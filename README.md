@@ -44,8 +44,8 @@ You can distribute the IPFS hash of your package to other AVADO users without re
 ## Some random tips
 
 - the docker-compose file creates a mount point `/data` where you can store data that has to be saved on a seperate volume to be retained after a package restart.
-- you can bump the package version number using `avadosdk patch`
-- upon installing - the AVADO will create a DNS entry called `my.<packagename>` that resolvves to the docker container's IP address. This is convenient if you want to open a web UI from the package. If you install this package - the hostname `my.avado-dnp-template.public.dappnode.eth` will resolve to its IP address.
+- you can bump the package version number using `avadosdk increase patch`
+- upon installing - the AVADO will create a DNS entry called `my.<packagename>` that resolves to the docker container's IP address. This is convenient if you want to open a web UI from the package. If you install this package - the hostname `my.avado-dnp-template.public.dappnode.eth` will resolve to its IP address.
 - in the AVADO repo - there are several packages published that you can take a look at to get inspired on how to fiddle with parameters.
 - The installer currently requires that there is only one docker image per package. So you need to put all your stuff in one container.
 - If you change the avatar.png image (needs to be 300x300 pixels) - you need to first upload it to IPFS using the command `ipfs add avatar.png --api /ip4/80.208.229.228/tcp/5001` and put the resulting IPFS hash in the field `avatar` in `dappnode_package.json`.
