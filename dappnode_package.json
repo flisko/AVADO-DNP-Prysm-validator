@@ -15,8 +15,8 @@
       "EXTRA_OPTS=--graffiti=AVADO --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000 --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500"
     ],
     "path": "eth2validator.avado.dnp.dappnode.eth_0.0.15.tar.xz",
-    "hash": "/ipfs/QmfUqn8uW4UZ3dLT6Hprm9aEGmST7QDYmUbKBf5WNBVqAF",
-    "size": 46609652,
+    "hash": "/ipfs/Qmdzytwf5QBeJVdbxkBpA6LVMciWxftXHAGR9V1tJppAVE",
+    "size": 47035904,
     "restart": "always"
   },
   "author": "AVADO",
