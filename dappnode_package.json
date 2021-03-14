@@ -15,17 +15,17 @@
       "EXTRA_OPTS=--graffiti=AVADO --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000 --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500"
     ],
     "path": "eth2validator.avado.dnp.dappnode.eth_0.0.18.tar.xz",
-    "hash": "/ipfs/QmbX8fow3ahd9hEz5nX6B1uzMm4vWvruArneLRBwpD8C9Y",
-    "size": 46279124,
+    "hash": "/ipfs/QmPL4tTm6jNM8Qz9d1cG3mbWVD4axvGvKNWN4h7HDNpHuT",
+    "size": 45865308,
     "restart": "always"
   },
   "author": "AVADO",
   "license": "(c)",
   "dependencies": {
-    "prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth": "QmTUaSPTdDm9wzRnZpetV1qaSL8W196wDsSCkme2hwUMMp"
+    "prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth": ""
   },
   "links": {
     "OnboardingWizard": "http://eth2validator.avadopackage.com:81"
   },
-  "builddate": "2021-03-07T22:21:40.984Z"
+  "builddate": "2021-03-10T22:35:58.325Z"
 }
