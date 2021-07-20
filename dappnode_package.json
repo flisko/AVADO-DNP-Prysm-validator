@@ -1,7 +1,7 @@
 {
   "name": "eth2validator.avado.dnp.dappnode.eth",
-  "version": "0.0.27",
-  "upstream": "v1.3.11",
+  "version": "0.0.28",
+  "upstream": "v1.4.1",
   "title": "Prysm ETH2.0 validator",
   "description": "the ETH2.0 validator for AVADO",
   "avatar": "/ipfs/Qmf7yFka8z2QLRrDyT1ESNRwP9a1tdufEEtBghXHFUEQEP",
@@ -14,9 +14,9 @@
     "environment": [
       "EXTRA_OPTS=--graffiti=AVADO --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000 --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500"
     ],
-    "path": "eth2validator.avado.dnp.dappnode.eth_0.0.27.tar.xz",
-    "hash": "/ipfs/QmYRd4iBbBqEgXnLn9gW6cGQeWGaDPATAr6KYdo8cdxdUU",
-    "size": 45737528,
+    "path": "eth2validator.avado.dnp.dappnode.eth_0.0.28.tar.xz",
+    "hash": "/ipfs/Qmd848imnsHNJoMNft4rKy7taoDTaRtsM2DFt799veWpfE",
+    "size": 45688080,
     "restart": "always"
   },
   "author": "AVADO",
