@@ -1,5 +1,7 @@
 # AVADO Prysm ETH2 validator package
 
+[![Build](https://github.com/AvadoDServer/AVADO-DNP-Prysm-validator/actions/workflows/build.yml/badge.svg)](https://github.com/AvadoDServer/AVADO-DNP-Prysm-validator/actions/workflows/build.yml)
+
 ## Prerequisites
  
  - A WiFi or VPN connection to your AVADO box 
