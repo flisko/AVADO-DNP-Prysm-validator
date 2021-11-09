@@ -4,6 +4,11 @@ echo "Start nginx"
 
 nginx
 
+echo "Generating auth token"
+# Generate `/root/.eth2validators/auth-token`
+mkdir -p "/root/.eth2validators"
+validator web generate-auth-token --wallet-dir=/root/.eth2validators --accept-terms-of-use
+
 echo "Starting validator"
 
 set -u

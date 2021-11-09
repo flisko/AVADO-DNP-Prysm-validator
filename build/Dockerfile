@@ -1,14 +1,5 @@
-FROM node as builder
-ARG VERSION
-
-WORKDIR /app/validator 
-ENV DOWNLOAD_URL https://github.com/prysmaticlabs/prysm/releases/download
-ENV BINARY_URL ${DOWNLOAD_URL}/${VERSION}/validator-${VERSION}-linux-amd64
-
-RUN wget $BINARY_URL -O validator && \
-    chmod +x  validator
-RUN ls -l
-
+#TODO: DO NOT MERGE TO MASTER: use release $VERSION here instead
+FROM  gcr.io/prysmaticlabs/prysm/validator:latest as builder
 
 FROM debian:buster-slim
 
@@ -21,7 +12,7 @@ WORKDIR  /usr/share/nginx
 COPY wizard ./wizard
 COPY files/nginx.conf /etc/nginx
 
-COPY --from=builder /app/validator/validator /bin/validator
+COPY --from=builder /app/cmd/validator/validator /bin/validator
 
 COPY files/start.sh /scripts/start.sh
 RUN chmod +x /scripts/start.sh
