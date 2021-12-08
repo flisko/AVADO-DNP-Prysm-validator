@@ -9,6 +9,10 @@ echo "Generating auth token"
 mkdir -p "/root/.eth2validators"
 validator web generate-auth-token --wallet-dir=/root/.eth2validators --accept-terms-of-use
 
+# copy token to wizard for authentication link
+cat /root/.eth2validators/auth-token | tail -1 > /usr/share/nginx/wizard/auth-token.txt
+chmod 644 /usr/share/nginx/wizard/auth-token.txt
+
 echo "Starting validator"
 
 set -u
