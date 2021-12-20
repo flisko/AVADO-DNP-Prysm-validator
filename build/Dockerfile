@@ -1,6 +1,6 @@
 
 # build image for monitor & wizard
-FROM node:12-alpine as builder-nodejs
+FROM node:14-alpine as builder-nodejs
 
 # build wizard
 WORKDIR /usr/src/wizard
