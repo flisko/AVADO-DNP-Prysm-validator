@@ -4,6 +4,22 @@ echo "Start nginx"
 
 nginx
 
+echo "Generating auth token"
+mkdir -p "/root/.eth2validators"
+
+# remove old token if it's there
+rm -f /root/.eth2validators/auth-token
+
+# generate new token
+validator web generate-auth-token --wallet-dir=/root/.eth2validators --accept-terms-of-use
+
+# remove old token if it's there
+rm -f /usr/share/nginx/wizard/auth-token.txt
+
+# copy new token to wizard for authentication link
+cat /root/.eth2validators/auth-token | tail -1 > /usr/share/nginx/wizard/auth-token.txt
+chmod 644 /usr/share/nginx/wizard/auth-token.txt
+
 echo "Starting validator"
 
 set -u

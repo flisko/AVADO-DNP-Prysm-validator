@@ -1,14 +1,19 @@
-FROM node as builder
-ARG VERSION
 
-WORKDIR /app/validator 
-ENV DOWNLOAD_URL https://github.com/prysmaticlabs/prysm/releases/download
-ENV BINARY_URL ${DOWNLOAD_URL}/${VERSION}/validator-${VERSION}-linux-amd64
+# build image for monitor & wizard
+FROM node:14-alpine as builder-nodejs
 
-RUN wget $BINARY_URL -O validator && \
-    chmod +x  validator
-RUN ls -l
+# build wizard
+WORKDIR /usr/src/wizard
+COPY wizard .
+RUN rm -Rf   node_modules
+RUN rm -f yarn.lock
+RUN yarn add react-scripts 
+RUN yarn 
+RUN yarn build
 
+
+#TODO: DO NOT MERGE TO MASTER: use release $VERSION here instead
+FROM  gcr.io/prysmaticlabs/prysm/validator:latest as builder
 
 FROM debian:buster-slim
 
@@ -18,10 +23,11 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR  /usr/share/nginx
-COPY wizard ./wizard
+COPY --from=builder-nodejs /usr/src/wizard/build /usr/share/nginx/wizard
 COPY files/nginx.conf /etc/nginx
 
-COPY --from=builder /app/validator/validator /bin/validator
+COPY --from=builder /app/cmd/validator/validator /bin/validator
+
 
 COPY files/start.sh /scripts/start.sh
 RUN chmod +x /scripts/start.sh

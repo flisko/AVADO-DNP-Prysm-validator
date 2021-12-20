@@ -228,5 +228,26 @@
     "uploadedTo": {
       "http://80.208.229.228:5001": "Wed, 20 Oct 2021 15:37:13 GMT"
     }
+  },
+  "0.0.34": {
+    "hash": "/ipfs/QmZppvX32DifnZAC23ZikLMNkQXJTaNN3G9zU5mcXURDf4",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://80.208.229.228:5001": "Tue, 07 Dec 2021 20:32:03 GMT"
+    }
+  },
+  "0.0.35": {
+    "hash": "/ipfs/QmZDTjSA66ks1tdsdovLN4t8dtdpxrnkksr93nt4GLKbhQ",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://80.208.229.228:5001": "Tue, 07 Dec 2021 23:43:29 GMT"
+    }
+  },
+  "0.0.36": {
+    "hash": "/ipfs/QmaH7HEGSMHAJhz6k4zd7GLeHNoMvP3w9kpZWjBWtuuWVQ",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://80.208.229.228:5001": "Mon, 20 Dec 2021 21:35:01 GMT"
+    }
   }
 }
