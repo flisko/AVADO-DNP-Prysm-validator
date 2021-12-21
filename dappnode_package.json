@@ -1,7 +1,7 @@
 {
   "name": "eth2validator.avado.dnp.dappnode.eth",
-  "version": "0.0.36",
-  "upstream": "v2.0.2",
+  "version": "0.0.37",
+  "upstream": "v2.0.5",
   "title": "Prysm ETH2.0 validator",
   "description": "the ETH2.0 validator for AVADO",
   "avatar": "/ipfs/Qmf7yFka8z2QLRrDyT1ESNRwP9a1tdufEEtBghXHFUEQEP",
@@ -14,9 +14,9 @@
     "environment": [
       "EXTRA_OPTS=--graffiti=AVADO --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000 --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500"
     ],
-    "path": "eth2validator.avado.dnp.dappnode.eth_0.0.36.tar.xz",
-    "hash": "/ipfs/Qmadw3swqtPDaKA7YCr6J6cFwn8BQtyYWCTHe1xLfKizYA",
-    "size": 44716856,
+    "path": "eth2validator.avado.dnp.dappnode.eth_0.0.37.tar.xz",
+    "hash": "/ipfs/QmZdp7fpRjtaZxhghmV7sWcBtSX676nStr69DsMZmRKgSf",
+    "size": 44260760,
     "restart": "always"
   },
   "author": "AVADO",
@@ -27,5 +27,5 @@
   "links": {
     "OnboardingWizard": "http://eth2validator.my.ava.do:81"
   },
-  "builddate": "2021-12-20T21:46:47.578Z"
+  "builddate": "2021-12-21T09:02:50.088Z"
 }
