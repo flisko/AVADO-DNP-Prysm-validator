@@ -1,6 +1,7 @@
 import React from 'react';
 import "./css/style.sass";
 import axios from "axios";
+import Validators from './Validators';
 
 
 function App() {
@@ -49,13 +50,12 @@ function App() {
                                     <a className="button is-medium is-link" target="_blank"
                                         href={`http://eth2validator.my.ava.do/initialize?token=${authToken}`}>I agree - Open the Prysm web
                                         dashboard</a>
-
                                 </p>
                             </div>
+                            <Validators network="mainnet" apiToken={authToken} />
                         </div>
                     </div>
                 </div>
-
             </section>
         </div>
     );
