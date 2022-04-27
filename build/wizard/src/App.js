@@ -7,7 +7,7 @@ import Validators from './Validators';
 function App() {
 
 
-    const [authToken, setAuthToken] = React.useState(true);
+    const [authToken, setAuthToken] = React.useState();
 
     React.useEffect(() => {
 
