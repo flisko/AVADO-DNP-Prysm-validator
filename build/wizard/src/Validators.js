@@ -17,15 +17,16 @@ const Validators = ({ network, apiToken }) => {
     }
 
     const updateValidators = async () => {
-        if (apiToken) {            
+        if (apiToken) {
             return await axios.get("http://eth2validator.my.ava.do:80/eth/v1/keystores", {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${apiToken}`
                 }
             }).then((res) => {
+                console.log("result:", res)
                 if (res.status === 200) {
-                    setValidators(res.data.keystores.map(d => d.validating_pubkey))
+                    setValidators(res.data.data.map(d => d.validating_pubkey))
                 }
             }).catch((e) => {
                 console.log(e)
@@ -94,7 +95,7 @@ const Validators = ({ network, apiToken }) => {
             {validators && (
                 <>
                     <div className="card">
-                        <div class="card-content">
+                        <div className="card-content">
                             <h2 className="subtitle is-4">Validators</h2>
                             <table className="table">
                                 <thead>
