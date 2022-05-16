@@ -1,7 +1,7 @@
 {
   "name": "eth2validator.avado.dnp.dappnode.eth",
-  "version": "0.0.41",
-  "upstream": "v2.1.1",
+  "version": "0.0.42",
+  "upstream": "v2.1.2",
   "title": "Prysm ETH2.0 validator",
   "description": "the ETH2.0 validator for AVADO",
   "avatar": "/ipfs/Qmf7yFka8z2QLRrDyT1ESNRwP9a1tdufEEtBghXHFUEQEP",
