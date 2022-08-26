@@ -25,24 +25,32 @@ echo "Starting validator"
 set -u
 set -o errexit
 
-# Must used escaped \"$VAR\" to accept spaces: --graffiti=\"$GRAFFITI\"
-COMMAND="/bin/validator \
+SETTINGSFILE=/root/settings.json
+GRAFFITI=$(cat ${SETTINGSFILE} | jq '."validators_graffiti" // empty' | tr -d '"')
+VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT=$(cat ${SETTINGSFILE} | jq '."validators_proposer_default_fee_recipient" // empty' | tr -d '"')
+
+echo "Configuration:"
+echo "Graffiti: \"${GRAFFITI}\""
+echo "Fee recipient: \"${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}\""
+echo "Extra opts: \"${EXTRA_OPTS}\""
+
+/bin/validator \
   --mainnet \
-  --datadir=/root/.eth2 \
-  --rpc-host 0.0.0.0 \
-  --grpc-gateway-host 0.0.0.0 \
-  --monitoring-host 0.0.0.0 \
-  --wallet-dir=/root/.eth2validators \
-  --wallet-password-file=/root/.eth2wallets/wallet-password.txt \
+  --datadir="/root/.eth2" \
+  --rpc-host="0.0.0.0" \
+  --grpc-gateway-host="0.0.0.0" \
+  --monitoring-host="0.0.0.0" \
+  --wallet-dir="/root/.eth2validators" \
+  --wallet-password-file="/root/.eth2wallets/wallet-password.txt" \
   --write-wallet-password-on-web-onboarding \
   --web \
-  --grpc-gateway-host=0.0.0.0 \
-  --grpc-gateway-port=80 \
-  --grpc-gateway-corsdomain=* \
+  --rpc \
+  --grpc-gateway-host="0.0.0.0" \
+  --grpc-gateway-port=7500 \
+  --grpc-gateway-corsdomain="*" \
   --accept-terms-of-use \
-  ${EXTRA_OPTS}"
-
-
-echo "Starting ${COMMAND}"
-
-${COMMAND}
+  --graffiti="${GRAFFITI}" \
+  --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000 \
+  --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500 \
+  ${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT:+--suggested-fee-recipient=${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}} \
+  ${EXTRA_OPTS}

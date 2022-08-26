@@ -293,10 +293,17 @@
     }
   },
   "0.0.43": {
-    "hash": "/ipfs/QmcoVE3rzvs2vUnTU8FiFrAwhxqQem5XLTnuZ9saxgvq4Y",
+    "hash": "/ipfs/QmdoTd8FuDCUWzP9CV8yTUxPWcmRBYyhWNFqDHsWgGVUAH",
     "type": "manifest",
     "uploadedTo": {
-      "http://80.208.229.228:5001": "Mon, 01 Aug 2022 09:12:51 GMT"
+      "dappnode": "Fri, 12 Aug 2022 14:53:50 GMT"
+    }
+  },
+  "0.0.44": {
+    "hash": "/ipfs/QmWfWU3PDBy4DoMqwmhFeUvfV4m8P79Hw5XW1ya5wSPERX",
+    "type": "manifest",
+    "uploadedTo": {
+      "dappnode": "Fri, 12 Aug 2022 15:06:19 GMT"
     }
   }
 }
