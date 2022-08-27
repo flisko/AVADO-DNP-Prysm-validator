@@ -18,7 +18,7 @@ const Validators = ({ network, apiToken }) => {
 
     const updateValidators = async () => {
         if (apiToken) {
-            return await axios.get("http://eth2validator.my.ava.do:80/eth/v1/keystores", {
+            return await axios.get("http://eth2validator.my.ava.do:7500/eth/v1/keystores", {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${apiToken}`
@@ -71,7 +71,7 @@ const Validators = ({ network, apiToken }) => {
     const removeValidator = (pubKey) => {
         //https://ethereum.github.io/keymanager-APIs/#/Local%20Key%20Manager/DeleteKeys
         const apiCall = async (pubKey) => {
-            return await axios.delete("http://eth2validator.my.ava.do:80/eth/v1/keystores", {
+            return await axios.delete("http://eth2validator.my.ava.do:7500/eth/v1/keystores", {
                 headers: { Authorization: `Bearer ${apiToken}` },
                 data: { pubkeys: [pubKey] }
             }).then((res) => {

@@ -1,20 +1,16 @@
 version: '3.4'
 services:
   eth2validator.avado.dnp.dappnode.eth:
-    image: 'eth2validator.avado.dnp.dappnode.eth:0.0.43'
+    image: 'eth2validator.avado.dnp.dappnode.eth:0.0.44'
     build:
       context: ./build
       args:
-        VERSION: v2.1.3
+        VERSION: v3.0.0
     environment:
-      - >-
-        EXTRA_OPTS=--graffiti="AVADO"
-        --beacon-rpc-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:4000
-        --beacon-rpc-gateway-provider=my.prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth:3500
+      - EXTRA_OPTS=
     volumes:
       - 'data:/root'
     ports:
-      - '13000:13000'
       - '7500:7500'
       - '80:80'
 volumes:
