@@ -24,15 +24,17 @@ SETTINGSFILE=/root/settings.json
 
 # Workaround for fee recipient in RocketPool/Prysm
 PROPOSER_SETTINGS_PATH="/root/.eth2validators/proposer_settings.json"
+MEV_BOOST_ENABLED=$(cat ${SETTINGSFILE} | jq -r '."mev_boost" // false')
 if [ -f "${PROPOSER_SETTINGS_PATH}" ]; then
-  # check that default has not changed
   DEFAULT_FEE_ADDRESS=$(cat ${SETTINGSFILE} | jq -r '."validators_proposer_default_fee_recipient"')
   PROPOSER_DEFAULT=$(cat ${PROPOSER_SETTINGS_PATH} | jq -r '.default_config.fee_recipient')
-  # Update default if necesary
-  if [ "${DEFAULT_FEE_ADDRESS}" != "${PROPOSER_DEFAULT}" ]; then #compare case insensitive
+
     cat ${PROPOSER_SETTINGS_PATH} | jq '(.default_config.fee_recipient) |= "'${DEFAULT_FEE_ADDRESS}'"' > ${PROPOSER_SETTINGS_PATH}.tmp
     mv ${PROPOSER_SETTINGS_PATH}.tmp ${PROPOSER_SETTINGS_PATH}
-  fi
+
+    cat ${PROPOSER_SETTINGS_PATH} | jq '(.default_config.builder.enabled) |= '${MEV_BOOST_ENABLED} > ${PROPOSER_SETTINGS_PATH}.tmp
+    mv ${PROPOSER_SETTINGS_PATH}.tmp ${PROPOSER_SETTINGS_PATH}
+
   PROPOSER_SETTINGS_FILE="${PROPOSER_SETTINGS_PATH}"
 fi
 
@@ -41,7 +43,6 @@ echo "Starting validator"
 set -u
 set -o errexit
 
-SETTINGSFILE=/root/settings.json
 GRAFFITI=$(cat ${SETTINGSFILE} | jq '."validators_graffiti" // empty' | tr -d '"')
 VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT=$(cat ${SETTINGSFILE} | jq '."validators_proposer_default_fee_recipient" // empty' | tr -d '"')
 
@@ -68,4 +69,6 @@ exec /bin/validator \
   --beacon-rpc-provider=prysm-beacon-chain-mainnet.my.ava.do:4000 \
   --beacon-rpc-gateway-provider=prysm-beacon-chain-mainnet.my.ava.do:3500 \
   ${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT:+--suggested-fee-recipient=${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}} \
+  ${MEV_BOOST_ENABLED:+--enable-builder} \
   ${EXTRA_OPTS}
+
