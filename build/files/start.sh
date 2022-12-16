@@ -21,6 +21,7 @@ cat /root/.eth2validators/auth-token | tail -1 > /usr/share/nginx/wizard/auth-to
 chmod 644 /usr/share/nginx/wizard/auth-token.txt
 
 SETTINGSFILE=/root/settings.json
+NETWORK=$(cat ${SETTINGSFILE} | jq -r '."network"')
 
 # Workaround for fee recipient in RocketPool/Prysm
 PROPOSER_SETTINGS_PATH="/root/.eth2validators/proposer_settings.json"
@@ -52,7 +53,7 @@ echo "Fee recipient: \"${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}\""
 echo "Extra opts: \"${EXTRA_OPTS}\""
 
 exec /bin/validator \
-  --mainnet \
+  --${NETWORK} \
   --datadir="/root/.eth2" \
   --rpc-host="0.0.0.0" \
   --grpc-gateway-host="0.0.0.0" \
@@ -66,8 +67,8 @@ exec /bin/validator \
   --accept-terms-of-use \
   --graffiti="${GRAFFITI}" \
   ${PROPOSER_SETTINGS_FILE:+--proposer-settings-file=${PROPOSER_SETTINGS_FILE}} \
-  --beacon-rpc-provider=prysm-beacon-chain-mainnet.my.ava.do:4000 \
-  --beacon-rpc-gateway-provider=prysm-beacon-chain-mainnet.my.ava.do:3500 \
+  --beacon-rpc-provider=prysm-beacon-chain-${NETWORK}.my.ava.do:4000 \
+  --beacon-rpc-gateway-provider=prysm-beacon-chain-${NETWORK}.my.ava.do:3500 \
   ${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT:+--suggested-fee-recipient=${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}} \
   ${MEV_BOOST_ENABLED:+--enable-builder} \
   ${EXTRA_OPTS}
