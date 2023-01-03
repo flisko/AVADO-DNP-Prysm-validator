@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSatelliteDish, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { network, validator_url } from './consts';
+import { validator_url } from './consts';
 
 const Validators = ({ network, apiToken }) => {
     const [validators, setValidators] = React.useState("");
