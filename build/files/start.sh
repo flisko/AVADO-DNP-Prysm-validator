@@ -17,10 +17,21 @@ validator web generate-auth-token --wallet-dir=/root/.eth2validators --accept-te
 rm -f /usr/share/nginx/wizard/auth-token.txt
 
 # copy new token to wizard for authentication link
-cat /root/.eth2validators/auth-token | tail -1 > /usr/share/nginx/wizard/auth-token.txt
+cat /root/.eth2validators/auth-token | tail -1 >/usr/share/nginx/wizard/auth-token.txt
 chmod 644 /usr/share/nginx/wizard/auth-token.txt
 
 SETTINGSFILE=/root/settings.json
+
+if [ ! -f "${SETTINGSFILE}" ]; then
+  echo "Starting with default settings"
+  cat <<EOT >>${SETTINGSFILE}
+{
+    "network": "mainnet",
+    "validators_graffiti": "Avado"
+}
+EOT
+fi
+
 NETWORK=$(cat ${SETTINGSFILE} | jq -r '."network"')
 
 # Workaround for fee recipient in RocketPool/Prysm
@@ -30,11 +41,11 @@ if [ -f "${PROPOSER_SETTINGS_PATH}" ]; then
   DEFAULT_FEE_ADDRESS=$(cat ${SETTINGSFILE} | jq -r '."validators_proposer_default_fee_recipient"')
   PROPOSER_DEFAULT=$(cat ${PROPOSER_SETTINGS_PATH} | jq -r '.default_config.fee_recipient')
 
-    cat ${PROPOSER_SETTINGS_PATH} | jq '(.default_config.fee_recipient) |= "'${DEFAULT_FEE_ADDRESS}'"' > ${PROPOSER_SETTINGS_PATH}.tmp
-    mv ${PROPOSER_SETTINGS_PATH}.tmp ${PROPOSER_SETTINGS_PATH}
+  cat ${PROPOSER_SETTINGS_PATH} | jq '(.default_config.fee_recipient) |= "'${DEFAULT_FEE_ADDRESS}'"' >${PROPOSER_SETTINGS_PATH}.tmp
+  mv ${PROPOSER_SETTINGS_PATH}.tmp ${PROPOSER_SETTINGS_PATH}
 
-    cat ${PROPOSER_SETTINGS_PATH} | jq '(.default_config.builder.enabled) |= '${MEV_BOOST_ENABLED} > ${PROPOSER_SETTINGS_PATH}.tmp
-    mv ${PROPOSER_SETTINGS_PATH}.tmp ${PROPOSER_SETTINGS_PATH}
+  cat ${PROPOSER_SETTINGS_PATH} | jq '(.default_config.builder.enabled) |= '${MEV_BOOST_ENABLED} >${PROPOSER_SETTINGS_PATH}.tmp
+  mv ${PROPOSER_SETTINGS_PATH}.tmp ${PROPOSER_SETTINGS_PATH}
 
   PROPOSER_SETTINGS_FILE="${PROPOSER_SETTINGS_PATH}"
 fi
@@ -72,4 +83,3 @@ exec /bin/validator \
   ${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT:+--suggested-fee-recipient=${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}} \
   ${MEV_BOOST_ENABLED:+--enable-builder} \
   ${EXTRA_OPTS}
-
