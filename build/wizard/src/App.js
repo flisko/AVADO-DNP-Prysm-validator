@@ -2,11 +2,9 @@ import React from 'react';
 import "./css/style.sass";
 import axios from "axios";
 import Validators from './Validators';
-
+import { network, validator_url } from './consts';
 
 function App() {
-
-
     const [authToken, setAuthToken] = React.useState();
 
     React.useEffect(() => {
@@ -47,13 +45,13 @@ function App() {
                                 <br />
 
                                 <p className="has-text-centered">
-                                    <a className="button is-medium is-link" target="_blank"
-                                        href={`http://eth2validator.my.ava.do:7500/initialize?token=${authToken}`}>I agree - Open the Prysm web
+                                    <a className="button is-medium is-link" target="_blank" rel="noopener noreferrer"
+                                        href={`${validator_url}/initialize?token=${authToken}`}>I agree - Open the Prysm web
                                         dashboard</a>
 
                                 </p>
                             </div>
-                            <Validators network="mainnet" apiToken={authToken} />
+                            <Validators network={network} apiToken={authToken} />
                         </div>
                     </div>
                 </div>

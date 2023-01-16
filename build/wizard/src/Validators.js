@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSatelliteDish, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { validator_url } from './consts';
 
 const Validators = ({ network, apiToken }) => {
     const [validators, setValidators] = React.useState("");
@@ -18,7 +19,7 @@ const Validators = ({ network, apiToken }) => {
 
     const updateValidators = async () => {
         if (apiToken) {
-            return await axios.get("http://eth2validator.my.ava.do:7500/eth/v1/keystores", {
+            return await axios.get(`${validator_url}/eth/v1/keystores`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${apiToken}`
@@ -71,7 +72,7 @@ const Validators = ({ network, apiToken }) => {
     const removeValidator = (pubKey) => {
         //https://ethereum.github.io/keymanager-APIs/#/Local%20Key%20Manager/DeleteKeys
         const apiCall = async (pubKey) => {
-            return await axios.delete("http://eth2validator.my.ava.do:7500/eth/v1/keystores", {
+            return await axios.delete(`${validator_url}/eth/v1/keystores`, {
                 headers: { Authorization: `Bearer ${apiToken}` },
                 data: { pubkeys: [pubKey] }
             }).then((res) => {
