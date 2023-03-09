@@ -1,11 +1,11 @@
 version: '3.4'
 services:
-  eth2validator.avado.dnp.dappnode.eth:
-    image: 'eth2validator.avado.dnp.dappnode.eth:0.0.51'
+  eth2validator-prater.avado.dnp.dappnode.eth:
+    image: 'eth2validator-prater.avado.dnp.dappnode.eth:0.0.21'
     build:
       context: ./build
       args:
-        VERSION: v3.2.1
+        VERSION: v3.2.2-rc.3
     environment:
       - EXTRA_OPTS=
     volumes:
