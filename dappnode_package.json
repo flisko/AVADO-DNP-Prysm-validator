@@ -1,6 +1,6 @@
 {
   "name": "eth2validator-prater.avado.dnp.dappnode.eth",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "upstream": "v4.0.1",
   "title": "Prysm ETH2.0 validator Prater TestNet",
   "description": "the ETH 2.0 Prater TestNet validator for AVADO",
