@@ -5,7 +5,7 @@ services:
     build:
       context: ./build
       args:
-        VERSION: v3.2.2
+        VERSION: v4.0.1
     environment:
       - EXTRA_OPTS=
     volumes:
