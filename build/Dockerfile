@@ -1,7 +1,7 @@
 ARG VERSION
 
 # build image for monitor & wizard
-FROM node:16.14.0 as builder-nodejs
+FROM node:16.15.0 as builder-nodejs
 
 # build wizard
 WORKDIR /usr/src/wizard
@@ -21,6 +21,7 @@ RUN apt update && \
     ca-certificates \
     jq \
     nginx \
+    openssl\
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR  /usr/share/nginx
