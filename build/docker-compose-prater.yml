@@ -1,17 +1,18 @@
 version: '3.4'
 services:
   eth2validator-prater.avado.dnp.dappnode.eth:
-    image: 'eth2validator-prater.avado.dnp.dappnode.eth:0.0.25'
+    image: 'eth2validator-prater.avado.dnp.dappnode.eth:0.0.26'
     build:
       context: ./build
       args:
-        VERSION: v4.0.4
+        VERSION: v4.0.5
     environment:
       - EXTRA_OPTS=
     volumes:
       - 'data:/root'
     ports:
       - '7500:7500'
+      - '9999:9999'
       - '81:81'
 volumes:
   data: {}

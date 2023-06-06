@@ -15,8 +15,8 @@ for file in \
     build/docker-compose.yml \
     dappnode_package.json \
     build/avatar.png \
-    build/wizard/src/consts.js
-
+    build/wizard/src/consts.js \
+    build/monitor/settings/defaultsettings.json
 do
     BASENAME=${file%.*}
     EXT=${file##*.}

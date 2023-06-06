@@ -1,22 +1,18 @@
 #!/bin/bash
 
-echo "Start nginx"
-
-nginx
-
 echo "Generating auth token"
 mkdir -p "/root/.eth2validators"
 
 # Create a new wallet if necessary
 if [ ! -f "/root/.eth2validators/walletpassword.txt" ]; then
   echo "Create wallet"
-  openssl rand -hex 12 | tr -d "\n" > /root/.eth2validators/walletpassword.txt
+  openssl rand -hex 12 | tr -d "\n" >/root/.eth2validators/walletpassword.txt
   chmod 0600 /root/.eth2validators/walletpassword.txt
   /bin/validator wallet create --wallet-dir=/root/.eth2validators --keymanager-kind=imported --wallet-password-file=/root/.eth2validators/walletpassword.txt --accept-terms-of-use
 fi
 
 # Check wallet: list contents
-/bin/validator accounts list  --wallet-dir=/root/.eth2validators --wallet-password-file=/root/.eth2validators/walletpassword.txt
+/bin/validator accounts list --wallet-dir=/root/.eth2validators --wallet-password-file=/root/.eth2validators/walletpassword.txt
 
 # remove old token if it's there
 rm -f /root/.eth2validators/auth-token
@@ -34,20 +30,14 @@ chmod 644 /usr/share/nginx/wizard/auth-token.txt
 SETTINGSFILE=/root/settings.json
 
 if [ ! -f "${SETTINGSFILE}" ]; then
-  echo "Starting with default settings"
-  cat <<EOT >>${SETTINGSFILE}
-{
-    "network": "mainnet",
-    "validators_graffiti": "Avado"
-}
-EOT
+  cp /defaultsettings.json ${SETTINGSFILE}
 fi
 
 NETWORK=$(cat ${SETTINGSFILE} | jq -r '."network"')
 
 # Workaround for fee recipient in RocketPool/Prysm
 PROPOSER_SETTINGS_PATH="/root/.eth2validators/proposer_settings.json"
-MEV_BOOST_ENABLED=$(cat ${SETTINGSFILE} | jq -r '."mev_boost" // false')
+# MEV_BOOST_ENABLED=$(cat ${SETTINGSFILE} | jq -r '."mev_boost" // false')
 if [ -f "${PROPOSER_SETTINGS_PATH}" ]; then
   DEFAULT_FEE_ADDRESS=$(cat ${SETTINGSFILE} | jq -r '."validators_proposer_default_fee_recipient"')
   PROPOSER_DEFAULT=$(cat ${PROPOSER_SETTINGS_PATH} | jq -r '.default_config.fee_recipient')
@@ -73,6 +63,8 @@ echo "Configuration:"
 echo "Graffiti: \"${GRAFFITI}\""
 echo "Fee recipient: \"${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}\""
 echo "Extra opts: \"${EXTRA_OPTS}\""
+cat ${SETTINGSFILE}
+# echo "MEV_BOOST_ENABLED: \"${MEV_BOOST_ENABLED}\""
 
 exec /bin/validator \
   --${NETWORK} \
