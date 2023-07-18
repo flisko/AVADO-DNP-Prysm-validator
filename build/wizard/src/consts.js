@@ -1,2 +1,2 @@
-export const validator_url = "http://eth2validator.my.ava.do:7500";
-export const network = "mainnet"
+export const validator_url = "http://eth2validator-prater.my.ava.do:7500";
+export const network = "prater"
