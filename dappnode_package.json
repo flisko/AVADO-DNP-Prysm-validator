@@ -1,10 +1,10 @@
 {
-  "name": "eth2validator.avado.dnp.dappnode.eth",
-  "version": "0.0.60",
+  "name": "eth2validator-prater.avado.dnp.dappnode.eth",
+  "version": "0.0.28",
   "upstream": "v4.0.8",
-  "title": "Prysm ETH2.0 validator Mainnet",
-  "description": "the ETH2.0 validator for AVADO",
-  "avatar": "/ipfs/QmdRSVjVx641sTHpbA9x729QxdRUM9pwSogDftfdf8ksQV",
+  "title": "Prysm ETH2.0 validator Prater TestNet",
+  "description": "the ETH 2.0 Prater TestNet validator for AVADO",
+  "avatar": "/ipfs/Qmf7yFka8z2QLRrDyT1ESNRwP9a1tdufEEtBghXHFUEQEP",
   "type": "service",
   "autoupdate": true,
   "image": {
@@ -19,9 +19,9 @@
   "author": "AVADO",
   "license": "(c)",
   "dependencies": {
-    "prysm-beacon-chain-mainnet.avado.dnp.dappnode.eth": ""
+    "prysm-beacon-chain-prater.avado.dnp.dappnode.eth": ""
   },
   "links": {
-    "OnboardingWizard": "http://eth2validator.my.ava.do:81"
+    "OnboardingWizard": "http://eth2validator-prater.my.ava.do:81"
   }
 }
