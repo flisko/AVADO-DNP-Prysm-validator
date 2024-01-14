@@ -42,7 +42,7 @@ COPY --from=builder /usr/src/wizard/build /usr/share/nginx/wizard
 COPY --from=builder /usr/src/monitor/ /usr/local/monitor
 
 COPY --from=validator /app/cmd/validator/validator /bin/validator
-COPY --from=prysmctl /app/cmd/prysmctl/prysmctl.runfiles/prysm/cmd/prysmctl/prysmctl_/prysmctl /bin/prysmctl
+COPY --from=prysmctl /app/cmd/prysmctl/prysmctl /bin/prysmctl
 
 COPY monitor/settings/defaultsettings.json /defaultsettings.json
 
