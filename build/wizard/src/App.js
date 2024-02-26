@@ -45,10 +45,8 @@ function App() {
                                 <br />
 
                                 <p className="has-text-centered">
-                                    <a className="button is-medium is-link" target="_blank" rel="noopener noreferrer"
-                                        href={`${validator_url}/initialize?token=${authToken}`}>I agree - Open the Prysm web
-                                        dashboard</a>
-
+                                    <a className="button is-medium is-link" target="_blank" rel="noopener noreferrer" href="http://prysm-beacon-chain-mainnet.my.ava.do/">Open the Avado wizard</a>
+                                    <a className="button is-medium is-link" target="_blank" rel="noopener noreferrer" href={`${validator_url}/initialize?token=${authToken}`}>Open the legacy Prysm web dashboard</a>
                                 </p>
                             </div>
                             <Validators network={network} apiToken={authToken} />
