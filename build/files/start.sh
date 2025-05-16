@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Generating auth token"
-mkdir -p "/root/.eth2validators"
+mkdir -p "/root/.eth2validators/prysm-wallet-v2"
 
 # Create a new wallet if necessary
 if [ ! -f "/root/.eth2validators/walletpassword.txt" ]; then
@@ -15,7 +15,7 @@ fi
 /bin/validator accounts list --wallet-dir=/root/.eth2validators --wallet-password-file=/root/.eth2validators/walletpassword.txt
 
 # remove old token if it's there
-rm -f /root/.eth2validators/auth-token
+rm -f /root/.eth2validators/prysm-wallet-v2/auth-token
 
 # generate new token
 validator web generate-auth-token --wallet-dir=/root/.eth2validators --accept-terms-of-use
@@ -24,7 +24,7 @@ validator web generate-auth-token --wallet-dir=/root/.eth2validators --accept-te
 rm -f /usr/share/nginx/wizard/auth-token.txt
 
 # copy new token to wizard for authentication link
-cat /root/.eth2validators/auth-token | tail -1 >/usr/share/nginx/wizard/auth-token.txt
+cat /root/.eth2validators/prysm-wallet-v2/auth-token | tail -1 >/usr/share/nginx/wizard/auth-token.txt
 chmod 644 /usr/share/nginx/wizard/auth-token.txt
 
 SETTINGSFILE=/root/settings.json
