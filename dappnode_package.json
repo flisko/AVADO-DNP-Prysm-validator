@@ -8,8 +8,12 @@
   "type": "service",
   "autoupdate": true,
   "image": {
-    "volumes": ["data:/root"],
-    "environment": ["EXTRA_OPTS="],
+    "volumes": [
+      "data:/root"
+    ],
+    "environment": [
+      "EXTRA_OPTS="
+    ],
     "restart": "always"
   },
   "author": "AVADO",
