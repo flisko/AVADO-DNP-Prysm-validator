@@ -83,7 +83,7 @@ exec /bin/validator \
   --graffiti="${GRAFFITI}" \
   ${PROPOSER_SETTINGS_FILE:+--proposer-settings-file=${PROPOSER_SETTINGS_FILE}} \
   --beacon-rpc-provider=prysm-beacon-chain-${NETWORK}.my.ava.do:4000 \
-  --beacon-rpc-gateway-provider=prysm-beacon-chain-${NETWORK}.my.ava.do:3500 \
+  --beacon-rest-api-provider=prysm-beacon-chain-${NETWORK}.my.ava.do:3500 \
   ${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT:+--suggested-fee-recipient=${VALIDATORS_PROPOSER_DEFAULT_FEE_RECIPIENT}} \
   ${MEV_BOOST_ENABLED:+--enable-builder} \
   ${EXTRA_OPTS}
