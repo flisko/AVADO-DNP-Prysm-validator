@@ -4,7 +4,7 @@ Script to check for Prysm upstream updates and update mainnet package files.
 This script:
 1. Fetches the latest release from OffchainLabs/prysm
 2. Compares with the current upstream version
-3. Updates dappnode_package-mainnet.json and build/docker-compose-mainnet.yml if needed
+3. Updates dappnode_package.json and build/docker-compose.yml if needed
 """
 
 import json
@@ -81,10 +81,10 @@ def increment_patch_version(version_str: str) -> str:
 
 def update_dappnode_package(file_path: str, new_version: str, new_upstream: str) -> bool:
     """
-    Update the dappnode_package-mainnet.json file.
+    Update the dappnode_package.json file.
     
     Args:
-        file_path: Path to the dappnode_package-mainnet.json file
+        file_path: Path to the dappnode_package.json file
         new_version: New package version
         new_upstream: New upstream version
         
@@ -110,10 +110,10 @@ def update_dappnode_package(file_path: str, new_version: str, new_upstream: str)
 
 def update_docker_compose(file_path: str, new_version: str, new_upstream: str) -> bool:
     """
-    Update the build/docker-compose-mainnet.yml file.
+    Update the build/docker-compose.yml file.
     
     Args:
-        file_path: Path to the docker-compose-mainnet.yml file
+        file_path: Path to the docker-compose.yml file
         new_version: New package version (for image tag)
         new_upstream: New upstream version (for VERSION build arg)
         
@@ -158,8 +158,8 @@ def main():
     """Main function to check and update Prysm versions."""
     
     # Paths to files
-    package_file = "dappnode_package-mainnet.json"
-    compose_file = "build/docker-compose-mainnet.yml"
+    package_file = "dappnode_package.json"
+    compose_file = "build/docker-compose.yml"
     
     # Read current versions
     try:
