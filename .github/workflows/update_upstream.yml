@@ -36,7 +36,7 @@ jobs:
         if: steps.update.outputs.update_available == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           commit-message: |
             Update Prysm upstream to ${{ steps.update.outputs.new_upstream }}
             
