@@ -1,0 +1,67 @@
+name: Update Prysm Upstream Version
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # Allow manual triggering
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Run update script
+        id: update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python .github/scripts/update_upstream.py
+      
+      - name: Create Pull Request
+        if: steps.update.outputs.update_available == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Update Prysm upstream to ${{ steps.update.outputs.new_upstream }}
+            
+            - Package version: ${{ steps.update.outputs.old_version }} → ${{ steps.update.outputs.new_version }}
+            - Upstream version: ${{ steps.update.outputs.old_upstream }} → ${{ steps.update.outputs.new_upstream }}
+          branch: automated/update-prysm-${{ steps.update.outputs.new_upstream }}
+          delete-branch: true
+          title: 'Update Prysm upstream to ${{ steps.update.outputs.new_upstream }}'
+          body: |
+            ## Automated Prysm Upstream Update
+            
+            This PR updates the Prysm upstream version for **mainnet** configuration.
+            
+            ### Changes
+            - **Package version**: `${{ steps.update.outputs.old_version }}` → `${{ steps.update.outputs.new_version }}`
+            - **Upstream version**: `${{ steps.update.outputs.old_upstream }}` → `${{ steps.update.outputs.new_upstream }}`
+            
+            ### Files Updated
+            - `dappnode_package-mainnet.json`
+            - `build/docker-compose-mainnet.yml`
+            
+            ### Release Notes
+            See the upstream release notes at: https://github.com/OffchainLabs/prysm/releases/tag/${{ steps.update.outputs.new_upstream }}
+            
+            ---
+            *This PR was automatically created by the update-upstream workflow.*
+          labels: |
+            automated
+            upstream-update
+          assignees: ''
+          reviewers: ''
