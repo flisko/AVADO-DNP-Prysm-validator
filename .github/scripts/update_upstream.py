@@ -33,7 +33,7 @@ def fetch_latest_release(repo_owner: str, repo_name: str) -> Optional[str]:
         request = urllib.request.Request(url)
         github_token = os.getenv('GITHUB_TOKEN')
         if github_token:
-            request.add_header('Authorization', f'token {github_token}')
+            request.add_header('Authorization', f'Bearer {github_token}')
         
         with urllib.request.urlopen(request) as response:
             data = json.loads(response.read().decode())
@@ -52,9 +52,17 @@ def parse_version(version_str: str) -> Tuple[int, int, int]:
         
     Returns:
         Tuple of (major, minor, patch)
+        
+    Raises:
+        ValueError: If the version string is not in the expected format
     """
-    parts = version_str.split('.')
-    return tuple(int(p) for p in parts)
+    try:
+        parts = version_str.split('.')
+        if len(parts) != 3:
+            raise ValueError(f"Version must have 3 parts (major.minor.patch), got {len(parts)}")
+        return tuple(int(p) for p in parts)
+    except ValueError as e:
+        raise ValueError(f"Invalid version string '{version_str}': {e}")
 
 
 def increment_patch_version(version_str: str) -> str:
@@ -116,6 +124,8 @@ def update_docker_compose(file_path: str, new_version: str, new_upstream: str) -
         with open(file_path, 'r') as f:
             content = f.read()
         
+        original_content = content
+        
         # Update image tag
         content = re.sub(
             r"(image:\s+['\"]eth2validator\.avado\.dnp\.dappnode\.eth:)[\d\.]+(['\"])",
@@ -129,6 +139,11 @@ def update_docker_compose(file_path: str, new_version: str, new_upstream: str) -
             rf"\g<1>{new_upstream}",
             content
         )
+        
+        # Verify that changes were made
+        if content == original_content:
+            print(f"Warning: No changes made to {file_path}. Pattern may not match.", file=sys.stderr)
+            return False
         
         with open(file_path, 'w') as f:
             f.write(content)
